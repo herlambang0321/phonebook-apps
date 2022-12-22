@@ -30,23 +30,50 @@ export default class UserBox extends Component {
                 alert('Failed get data')
             }
         } catch (error) {
-            console.log(error)
+            console.error(error)
         }
     }
 
     addUser = async (name, phone) => {
+        const id = Date.now()
         this.setState((state) => {
             return {
                 users: [
                     ...state.users,
                     {
-                        id: Date.now(),
+                        id,
                         name,
-                        phone
+                        phone,
+                        sent: true
                     }
                 ]
             };
         });
+        try {
+            const { data } = await request.post('phonebooks', { name, phone })
+            if (data.success) {
+                this.setState((state) => ({
+                    users: state.users.map(item => {
+                        if (item.id === id) {
+                            return { ...data.data, sent: true }
+                        }
+                        return item
+                    })
+                }))
+            } else {
+                console.log(data.data)
+            }
+        } catch (error) {
+            console.error(error)
+            this.setState((state) => ({
+                users: state.users.map(item => {
+                    if (item.id === id) {
+                        item.sent = false
+                    }
+                    return item
+                })
+            }))
+        }
     }
 
     render() {
