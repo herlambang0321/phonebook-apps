@@ -14,7 +14,7 @@ export default function UserList(props) {
             <tbody>
                 {props.data.map((user, index) => {
                     return (
-                        <UserItem key={index} no={index + 1} name={user.name} phone={user.phone} />
+                        <UserItem key={user.id} no={index + 1} name={user.name} phone={user.phone} />
                     )
                 })}
             </tbody>
