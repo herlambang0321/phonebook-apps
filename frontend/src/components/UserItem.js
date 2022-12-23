@@ -10,7 +10,7 @@ export default function UserItem(props) {
             <td>{props.phone}</td>
             <td>
                 <button type="button" className="btn btn-success mx-1"><FontAwesomeIcon icon={faPencil} /> edit</button>
-                <button type="submit" className="btn btn-danger"><FontAwesomeIcon icon={faTrashCan} /> delete</button>
+                <button type="button" className="btn btn-danger" onClick={props.remove}><FontAwesomeIcon icon={faTrashCan} /> delete</button>
             </td>
         </tr>
     )

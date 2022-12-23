@@ -76,6 +76,21 @@ export default class UserBox extends Component {
         }
     }
 
+    removeUser = async (id) => {
+        try {
+            const { data } = await request.delete(`phonebooks/${id}`)
+            if (data.success) {
+                this.setState((state) => ({
+                    users: state.users.filter((user) => user.id !== id)
+                }))
+            } else {
+                alert('users not found')
+            }
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
     render() {
         return (
             <div className="container">
@@ -87,7 +102,10 @@ export default class UserBox extends Component {
                 <div className="card-body">
                     <UserForm add={this.addUser} />
                 </div>
-                <UserList data={this.state.users} />
+                <UserList
+                    data={this.state.users}
+                    remove={this.removeUser}
+                />
             </div>
         )
     }
