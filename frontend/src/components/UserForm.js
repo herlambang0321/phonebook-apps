@@ -55,7 +55,7 @@ export default class UserForm extends Component {
                                     onChange={this.handleInputChange} value={this.state.phone} />
                             </div>
                             <button type="submit" className="btn btn-success"><FontAwesomeIcon icon={faCircleCheck} /> save</button>
-                            <button type="submit" className="btn btn-warning text-white"><FontAwesomeIcon icon={faBan} style={{transform: 'rotate(90deg'}} /> cancel</button>
+                            <button className="btn btn-warning text-white"><FontAwesomeIcon icon={faBan} style={{transform: 'rotate(90deg'}} /> cancel</button>
                         </div>
                     </form>
                 </div>

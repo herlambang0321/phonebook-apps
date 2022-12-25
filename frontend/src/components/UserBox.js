@@ -86,8 +86,26 @@ export default class UserBox extends Component {
             } else {
                 alert('users not found')
             }
-        } catch (err) {
-            console.log(err)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    resendUser = async (id, name, phone) => {
+        try {
+            const { data } = await request.post('phonebooks', { name, phone })
+            if (data.success) {
+                this.setState((state) => ({
+                    users: state.users.map(item => {
+                        if (item.id === id) {
+                            return { ...data.data, sent: true }
+                        }
+                        return item
+                    })
+                }))
+            }
+        } catch (error) {
+            console.log(error)
         }
     }
 
@@ -105,6 +123,7 @@ export default class UserBox extends Component {
                 <UserList
                     data={this.state.users}
                     remove={this.removeUser}
+                    resend={this.resendUser}
                 />
             </div>
         )

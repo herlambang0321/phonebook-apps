@@ -17,9 +17,9 @@ export default function UserList(props) {
                         <UserItem
                             key={user.id}
                             no={index + 1}
-                            name={user.name}
-                            phone={user.phone}
+                            user={user}
                             remove={() => props.remove(user.id)}
+                            resend={() => props.resend(user.id, user.name, user.phone)}
                         />
                     )
                 })}
