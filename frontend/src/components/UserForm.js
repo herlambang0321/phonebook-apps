@@ -43,14 +43,14 @@ export default class UserForm extends Component {
                             <div className="d-flex align-items-center">
                                 <label htmlFor="name">Name</label>
                             </div>
-                            <div className="col-sm-2">
+                            <div className="d-flex col-sm-2">
                                 <input type="text" className="form-control" id="name" name="name" placeholder="name"
                                     onChange={this.handleInputChange} value={this.state.name} />
                             </div>
                             <div className="d-flex align-items-center">
                                 <label htmlFor="phone">Phone</label>
                             </div>
-                            <div className="col-sm-2">
+                            <div className="d-flex col-sm-2">
                                 <input type="text" className="form-control" id="phone" name="phone" placeholder="phone"
                                     onChange={this.handleInputChange} value={this.state.phone} />
                             </div>
@@ -69,14 +69,14 @@ export default class UserForm extends Component {
                             <div className="d-flex align-items-center">
                                 <label htmlFor="name">Name</label>
                             </div>
-                            <div className="col-sm-2">
+                            <div className="d-flex col-sm-2">
                                 <input type="text" className="form-control" id="name" name="name" placeholder="name"
                                     onChange={this.handleInputChange} value={this.state.name} />
                             </div>
                             <div className="d-flex align-items-center">
                                 <label htmlFor="phone">Phone</label>
                             </div>
-                            <div className="col-sm-2">
+                            <div className="d-flex col-sm-2">
                                 <input type="text" className="form-control" id="phone" name="phone" placeholder="phone"
                                     onChange={this.handleInputChange} value={this.state.phone} />
                             </div>
