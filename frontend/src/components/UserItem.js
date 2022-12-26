@@ -4,7 +4,7 @@ import { faPencil, faTrashCan, faRepeat } from '@fortawesome/free-solid-svg-icon
 export default function UserItem(props) {
     return (
         <tr>
-            <td>{props.user.no}</td>
+            <td>{props.no}</td>
             <td>{props.user.name}</td>
             <td>{props.user.phone}</td>
             <td>

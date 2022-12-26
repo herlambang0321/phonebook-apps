@@ -71,14 +71,14 @@ export default class UserForm extends Component {
                             </div>
                             <div className="d-flex col-sm-2">
                                 <input type="text" className="form-control" id="name" name="name" placeholder="name"
-                                    onChange={this.handleInputChange} value={this.state.name} />
+                                    onChange={this.handleInputChange}  />
                             </div>
                             <div className="d-flex align-items-center">
                                 <label htmlFor="phone">Phone</label>
                             </div>
                             <div className="d-flex col-sm-2">
                                 <input type="text" className="form-control" id="phone" name="phone" placeholder="phone"
-                                    onChange={this.handleInputChange} value={this.state.phone} />
+                                    onChange={this.handleInputChange}  />
                             </div>
                         </div>
                     </form>
