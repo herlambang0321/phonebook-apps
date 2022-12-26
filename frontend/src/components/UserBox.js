@@ -1,4 +1,4 @@
-import { Component } from "react";
+import React, { Component } from 'react'
 import axios from 'axios'
 import UserForm from "./UserForm";
 import UserList from "./UserList";
@@ -68,11 +68,33 @@ export default class UserBox extends Component {
             this.setState((state) => ({
                 users: state.users.map(item => {
                     if (item.id === id) {
-                        item.sent = false
+                        // item.sent = false
+                        return { ...item, sent: false }
                     }
                     return item
                 })
             }))
+        }
+    }
+
+    updateUser = async (id, name, phone) => {
+        try {
+            const { data } = await request.put(`phonebooks/${id}`, { name, phone })
+            if (data.success) {
+                this.setState((state) => ({
+                    users: state.users.map(item => {
+                        if (item.id === id) {
+                            return { ...data.data, sent: true }
+                        }
+                        return item
+                    })
+                }))
+            } else {
+                console.log(data.data)
+            }
+        } catch (err) {
+            alert('Failed to update users')
+            console.log(err)
         }
     }
 
@@ -122,6 +144,7 @@ export default class UserBox extends Component {
                 </div>
                 <UserList
                     data={this.state.users}
+                    update={this.updateUser}
                     remove={this.removeUser}
                     resend={this.resendUser}
                 />

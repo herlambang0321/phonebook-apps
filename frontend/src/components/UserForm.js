@@ -1,4 +1,4 @@
-import { Component } from "react";
+import React, { Component } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faCircleCheck, faBan } from '@fortawesome/free-solid-svg-icons'
 
@@ -55,7 +55,7 @@ export default class UserForm extends Component {
                                     onChange={this.handleInputChange} value={this.state.phone} />
                             </div>
                             <button type="submit" className="btn btn-success"><FontAwesomeIcon icon={faCircleCheck} /> save</button>
-                            <button className="btn btn-warning text-white"><FontAwesomeIcon icon={faBan} style={{transform: 'rotate(90deg'}} /> cancel</button>
+                            <button className="btn btn-warning text-white"><FontAwesomeIcon icon={faBan} style={{ transform: 'rotate(90deg' }} /> cancel</button>
                         </div>
                     </form>
                 </div>
@@ -71,14 +71,14 @@ export default class UserForm extends Component {
                             </div>
                             <div className="d-flex col-sm-2">
                                 <input type="text" className="form-control" id="name" name="name" placeholder="name"
-                                    onChange={this.handleInputChange}  />
+                                    onChange={this.handleInputChange} />
                             </div>
                             <div className="d-flex align-items-center">
                                 <label htmlFor="phone">Phone</label>
                             </div>
                             <div className="d-flex col-sm-2">
                                 <input type="text" className="form-control" id="phone" name="phone" placeholder="phone"
-                                    onChange={this.handleInputChange}  />
+                                    onChange={this.handleInputChange} />
                             </div>
                         </div>
                     </form>

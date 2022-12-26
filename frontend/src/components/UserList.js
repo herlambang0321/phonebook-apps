@@ -18,6 +18,8 @@ export default function UserList(props) {
                             key={user.id}
                             no={index + 1}
                             user={user}
+                            // update={props.update}
+                            update={(name, phone) => props.update(user.id, name, phone)}
                             remove={() => props.remove(user.id)}
                             resend={() => props.resend(user.id, user.name, user.phone)}
                         />
