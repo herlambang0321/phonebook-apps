@@ -34,7 +34,25 @@ export default class UserBox extends Component {
         }
     }
 
-    addUser = async (name, phone) => {
+    searchUser = async ({ name, phone }) => {
+        try {
+            const { data } = await request.get(`phonebooks?${new URLSearchParams({ name, phone })}`)
+            if (data.success) {
+                this.setState({
+                    users: data.data.map(item => {
+                        item.sent = true
+                        return item
+                    })
+                })
+            } else {
+                alert('Failed search data')
+            }
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
+    addUser = async ({ name, phone }) => {
         const id = Date.now()
         this.setState((state) => {
             return {
@@ -68,7 +86,6 @@ export default class UserBox extends Component {
             this.setState((state) => ({
                 users: state.users.map(item => {
                     if (item.id === id) {
-                        // item.sent = false
                         return { ...item, sent: false }
                     }
                     return item
@@ -140,7 +157,10 @@ export default class UserBox extends Component {
                     </div>
                 </div>
                 <div className="card-body">
-                    <UserForm add={this.addUser} />
+                    <UserForm
+                        add={this.addUser}
+                        search={this.searchUser} submitLabel="search" nameType="text" phoneType="text"
+                    />
                 </div>
                 <UserList
                     data={this.state.users}

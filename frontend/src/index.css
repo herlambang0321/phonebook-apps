@@ -23,3 +23,11 @@ code {
 .btn-danger:hover{
   background-color: #f87171;
 }
+
+.btn-primary:hover{
+  background-color: #60a5fa;
+}
+
+.btn-info:hover{
+  background-color: #1DDDF2;
+}

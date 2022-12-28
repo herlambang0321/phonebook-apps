@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus, faCircleCheck, faBan } from '@fortawesome/free-solid-svg-icons'
+import { faPlus, faCircleCheck, faBan, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 
 export default class UserForm extends Component {
 
@@ -25,7 +25,13 @@ export default class UserForm extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault()
-        this.props.add(this.state.name, this.state.phone)
+        this.props.add({ name: this.state.name, phone: this.state.phone })
+        this.setState({ name: '', phone: '' })
+    }
+
+    handleSearch = (event) => {
+        event.preventDefault()
+        this.props.search({ name: this.state.name, phone: this.state.phone })
         this.setState({ name: '', phone: '' })
     }
 
@@ -75,22 +81,23 @@ export default class UserForm extends Component {
                         <div className="card-header">
                             <h6>Search Form</h6>
                         </div>
-                        <form className="m-3" onSubmit={this.handleSubmit}>
+                        <form className="m-3" onSubmit={this.handleSearch}>
                             <div className="d-flex justify-content me-5">
                                 <div className="d-flex align-items-center">
                                     <label htmlFor="name">Name</label>
                                 </div>
                                 <div className="d-flex col-sm-2">
-                                    <input type="text" className="form-control" id="name" name="name" placeholder="name"
+                                    <input type={this.props.nameType || "name"} className="form-control" id="name" name="name" placeholder="name"
                                         onChange={this.handleInputChange} />
                                 </div>
                                 <div className="d-flex align-items-center">
                                     <label htmlFor="phone">Phone</label>
                                 </div>
                                 <div className="d-flex col-sm-2">
-                                    <input type="text" className="form-control" id="phone" name="phone" placeholder="phone"
+                                    <input type={this.props.phoneType || "phone"} className="form-control" id="phone" name="phone" placeholder="phone"
                                         onChange={this.handleInputChange} />
                                 </div>
+                                <button type="submit" className="btn btn-info"><FontAwesomeIcon icon={faMagnifyingGlass} /> {this.props.submitLabel || 'search'}</button>
                             </div>
                         </form>
                     </div>
@@ -104,22 +111,23 @@ export default class UserForm extends Component {
                         <div className="card-header">
                             <h6>Search Form</h6>
                         </div>
-                        <form className="m-3" onSubmit={this.handleSubmit}>
+                        <form className="m-3" onSubmit={this.handleSearch}>
                             <div className="d-flex justify-content me-5">
                                 <div className="d-flex align-items-center">
                                     <label htmlFor="name">Name</label>
                                 </div>
                                 <div className="d-flex col-sm-2">
-                                    <input type="text" className="form-control" id="name" name="name" placeholder="name"
+                                    <input type={this.props.nameType || "name"} className="form-control" id="name" name="name" placeholder="name"
                                         onChange={this.handleInputChange} />
                                 </div>
                                 <div className="d-flex align-items-center">
                                     <label htmlFor="phone">Phone</label>
                                 </div>
                                 <div className="d-flex col-sm-2">
-                                    <input type="text" className="form-control" id="phone" name="phone" placeholder="phone"
+                                    <input type={this.props.phoneType || "phone"} className="form-control" id="phone" name="phone" placeholder="phone"
                                         onChange={this.handleInputChange} />
                                 </div>
+                                <button type="submit" className="btn btn-info"><FontAwesomeIcon icon={faMagnifyingGlass} /> {this.props.submitLabel || 'search'}</button>
                             </div>
                         </form>
                     </div>
