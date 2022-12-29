@@ -179,7 +179,7 @@ export default class UserBox extends Component {
                 </div>
                 <div className="card-body mt-3">
                     <UserForm
-                        submit={this.searchUser} submitLabel=" search" fontlabel="Search Form"
+                        search={this.searchUser} submitLabel=" search" fontlabel="Search Form"
                     />
                 </div>
                 <UserList

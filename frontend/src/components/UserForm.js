@@ -31,7 +31,6 @@ export default class UserForm extends Component {
     handleSearch = (event) => {
         event.preventDefault()
         this.props.search({ name: this.state.name, phone: this.state.phone })
-        this.setState({ name: '', phone: '' })
     }
 
     handleCancel = () => {
@@ -48,7 +47,7 @@ export default class UserForm extends Component {
                     <div className="card-header">
                         <h6>{this.props.fontlabel || 'Adding Form'}</h6>
                     </div>
-                    <form className="m-3" onSubmit={this.handleSubmit}>
+                    <form className="m-3" onSubmit={this.props.fontlabel ? this.handleSearch : this.handleSubmit}>
                         <div className="d-flex justify-content me-5">
                             <div className="d-flex align-items-center">
                                 <label htmlFor="name">Name</label>
