@@ -13,6 +13,7 @@ const request = axios.create({
 export default class UserBox extends Component {
     constructor(props) {
         super(props)
+        this.params = {}
         this.state = {
             users: [],
             showAdd: false,
@@ -20,15 +21,21 @@ export default class UserBox extends Component {
     }
 
     async componentDidMount() {
+        this.loadUser()
+    }
+
+    loadUser = async () => {
         try {
-            const { data } = await request.get('phonebooks')
+            const { data } = await request.get('phonebooks', { params: this.params })
             if (data.success) {
-                this.setState({
-                    users: data.data.map(item => {
+                this.setState(state => ({
+                    users: [...(this.params.page === 1 ? [] : state.users), ...data.data.rows.map(item => {
                         item.sent = true
                         return item
-                    })
-                })
+                    })]
+                }))
+                this.params.page = data.data.page
+                this.params.totalPage = data.data.totalPage
             } else {
                 alert('Failed get data')
             }
@@ -37,7 +44,14 @@ export default class UserBox extends Component {
         }
     }
 
-    hiddtenAddUser = () => {
+    loadMore = () => {
+        if (this.params.page <= this.params.totalPage) {
+            this.params = { ...this.params, page: this.params.page + 1 }
+        }
+        this.loadUser()
+    }
+
+    hiddenAddUser = () => {
         this.setState({
             showAdd: false
         })
@@ -49,22 +63,9 @@ export default class UserBox extends Component {
         })
     }
 
-    searchUser = async ({ name, phone }) => {
-        try {
-            const { data } = await request.get(`phonebooks?${new URLSearchParams({ name, phone })}`)
-            if (data.success) {
-                this.setState({
-                    users: data.data.map(item => {
-                        item.sent = true
-                        return item
-                    })
-                })
-            } else {
-                alert('Failed search data')
-            }
-        } catch (error) {
-            console.error(error)
-        }
+    searchUser = (query) => {
+        this.params = { ...this.params, ...query, page: 1 }
+        this.loadUser()
     }
 
     addUser = async ({ name, phone }) => {
@@ -175,7 +176,7 @@ export default class UserBox extends Component {
                     <button type="submit" className="btn btn-primary" onClick={() => this.showAddUser()}><FontAwesomeIcon icon={faPlus} /> add</button>
                 </div>
                 <div className="card-body mt-3">
-                    {this.state.showAdd ? <UserForm submit={this.addUser} cancel={this.hiddtenAddUser} /> : null}
+                    {this.state.showAdd ? <UserForm submit={this.addUser} cancel={this.hiddenAddUser} /> : null}
                 </div>
                 <div className="card-body mt-3">
                     <UserForm
@@ -187,6 +188,7 @@ export default class UserBox extends Component {
                     update={this.updateUser}
                     remove={this.removeUser}
                     resend={this.resendUser}
+                    loadMorePage={this.loadMore}
                 />
             </div>
         )

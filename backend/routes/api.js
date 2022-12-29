@@ -9,10 +9,9 @@ router.get('/phonebooks', async function (req, res, next) {
     try {
         const { name, phone } = req.query
 
-        const page = req.query.page || 1;
+        const page = parseInt(req.query.page) || 1;
         const limit = 3;
         const offset = (page - 1) * limit;
-
 
         if (name && phone) {
             const { count, rows } = await models.User.findAndCountAll({

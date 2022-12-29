@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBan, faCircleCheck, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
+import { faBan, faCircleCheck, faMagnifyingGlass, faRotateLeft } from '@fortawesome/free-solid-svg-icons'
 
 export default class UserForm extends Component {
 
@@ -68,7 +68,7 @@ export default class UserForm extends Component {
                                 :
                                 <button type="submit" className="btn btn-primary"><FontAwesomeIcon icon={faCircleCheck} />{this.props.submitLabel || ' save'}</button>
                             }
-                            <button className="btn btn-warning text-white" onClick={this.handleCancel}><FontAwesomeIcon icon={faBan} style={{ transform: 'rotate(90deg' }} /> cancel</button>
+                            <button className="btn btn-warning text-white" onClick={this.handleCancel}><FontAwesomeIcon icon={this.props.submitLabel ? faRotateLeft : faBan} style={{ transform: 'rotate(90deg' }} />{this.props.submitLabel ? ' reset' : ' cancel'}</button>
                         </div>
                     </form>
                 </div>
