@@ -9,8 +9,13 @@ router.get('/phonebooks', async function (req, res, next) {
     try {
         const { name, phone } = req.query
 
+        const page = req.query.page || 1;
+        const limit = 3;
+        const offset = (page - 1) * limit;
+
+
         if (name && phone) {
-            const users = await models.User.findAll({
+            const { count, rows } = await models.User.findAndCountAll({
                 where: {
                     [Op.or]: [
                         {
@@ -27,13 +32,20 @@ router.get('/phonebooks', async function (req, res, next) {
                 },
                 order: [
                     ['id', 'ASC']
-                ]
+                ],
+                limit: limit,
+                offset: offset
             })
 
-            res.json(new Response(users))
+            const totalPage = Math.ceil(count / limit);
+            res.json(new Response({
+                rows,
+                page,
+                totalPage
+            }))
 
         } else if (name) {
-            const users = await models.User.findAll({
+            const { count, rows } = await models.User.findAndCountAll({
                 where: {
                     [Op.and]: [
                         {
@@ -45,12 +57,19 @@ router.get('/phonebooks', async function (req, res, next) {
                 },
                 order: [
                     ['id', 'ASC']
-                ]
+                ],
+                limit: limit,
+                offset: offset
             })
 
-            res.json(new Response(users))
+            const totalPage = Math.ceil(count / limit);
+            res.json(new Response({
+                rows,
+                page,
+                totalPage
+            }))
         } else if (phone) {
-            const users = await models.User.findAll({
+            const { count, rows } = await models.User.findAndCountAll({
                 where: {
                     [Op.and]: [
                         {
@@ -62,23 +81,33 @@ router.get('/phonebooks', async function (req, res, next) {
                 },
                 order: [
                     ['id', 'ASC']
-                ]
+                ],
+                limit: limit,
+                offset: offset
             })
 
-            res.json(new Response(users))
-
+            const totalPage = Math.ceil(count / limit);
+            res.json(new Response({
+                rows,
+                page,
+                totalPage
+            }))
         } else {
-            const users = await models.User.findAll({
+            const { count, rows } = await models.User.findAndCountAll({
                 order: [
                     ['id', 'ASC']
-                ]
+                ],
+                limit: limit,
+                offset: offset
             })
 
-            res.json(new Response(users))
+            const totalPage = Math.ceil(count / limit);
+            res.json(new Response({
+                rows,
+                page,
+                totalPage
+            }))
         }
-
-        // const users = await models.User.findAll()
-        // res.json(new Response(users))
     } catch (err) {
         res.status(500).json(new Response(err, false))
     }
