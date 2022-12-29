@@ -2,7 +2,7 @@ import UserItem from "./UserItem"
 
 export default function UserList(props) {
     return (
-        <table className="table table-striped">
+        <table className="table table-striped mt-3">
             <thead>
                 <tr>
                     <th>#</th>

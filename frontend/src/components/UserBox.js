@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import UserForm from "./UserForm";
 import UserList from "./UserList";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
 
 const request = axios.create({
     baseURL: 'http://localhost:3000/api',
@@ -12,7 +14,8 @@ export default class UserBox extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            users: []
+            users: [],
+            showAdd: false,
         }
     }
 
@@ -32,6 +35,18 @@ export default class UserBox extends Component {
         } catch (error) {
             console.error(error)
         }
+    }
+
+    hiddtenAddUser = () => {
+        this.setState({
+            showAdd: false
+        })
+    }
+
+    showAddUser = () => {
+        this.setState({
+            showAdd: true
+        })
     }
 
     searchUser = async ({ name, phone }) => {
@@ -156,10 +171,15 @@ export default class UserBox extends Component {
                         <h1>Phone Book Apps</h1>
                     </div>
                 </div>
-                <div className="card-body">
+                <div className="mt-3">
+                    <button type="submit" className="btn btn-primary" onClick={() => this.showAddUser()}><FontAwesomeIcon icon={faPlus} /> add</button>
+                </div>
+                <div className="card-body mt-3">
+                    {this.state.showAdd ? <UserForm submit={this.addUser} cancel={this.hiddtenAddUser} /> : null}
+                </div>
+                <div className="card-body mt-3">
                     <UserForm
-                        add={this.addUser}
-                        search={this.searchUser} submitLabel="search" nameType="text" phoneType="text"
+                        submit={this.searchUser} submitLabel=" search" fontlabel="Search Form"
                     />
                 </div>
                 <UserList
